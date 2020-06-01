@@ -1,5 +1,6 @@
 import React from "react";
-import styled, { createGlobalStyle, css } from "styled-components";
+import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
+import theme from "./theme";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -9,20 +10,16 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const card = css`
+const Card = styled.div`
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-  background-color: white;
   border-radius: 10px;
   padding: 20px;
+  background-color: ${(props) => props.theme.dangerColor};
 `;
 
-const Input = styled.input.attrs({
-  required: true,
-})`
-  border-radius: 30px;
-  border: none;
-  margin-left: 30px;
-  ${card};
+const Button = styled.button`
+  padding: 25px 50px;
+  background-color: ${(props) => props.theme.successColor};
 `;
 
 const Container = styled.div`
@@ -33,11 +30,19 @@ const Container = styled.div`
 
 function App() {
   return (
-    <Container>
-      <GlobalStyle />
-      <Input placeholder="Your Name" />
-    </Container>
+    <ThemeProvider theme={theme}>
+      <Container>
+        <GlobalStyle />
+        <Form />
+      </Container>
+    </ThemeProvider>
   );
 }
+
+const Form = () => (
+  <Card>
+    <Button></Button>
+  </Card>
+);
 
 export default App;
